@@ -1,4 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
+
+    // 0. Check if a shared plan is in the URL via '?plan='
+    const urlParams = new URLSearchParams(window.location.search);
+    const sharedPlanData = urlParams.get('plan');
+    if (sharedPlanData) {
+        const success = DataManager.importFromUrl(sharedPlanData);
+        if (success) {
+            // Clean up URL so user doesn't keep sharing nested arrays by accident
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
+    }
+
     // 1. Load data
     const plan = DataManager.loadPlan();
 

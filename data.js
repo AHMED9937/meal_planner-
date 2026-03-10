@@ -152,5 +152,35 @@ const DataManager = {
     // Helper to generate unique IDs
     generateId: function (prefix) {
         return prefix + '-' + Math.random().toString(36).substr(2, 9);
+    },
+
+    // Convert deeply nested plan to a highly compressed Base64 string for URL sharing
+    exportToUrl: function () {
+        const plan = this.loadPlan();
+        try {
+            // Unescape + encodeURIComponent trick to safely btoa unicode (Arabic)
+            const stringified = JSON.stringify(plan);
+            const encoded = btoa(unescape(encodeURIComponent(stringified)));
+            return encoded;
+        } catch (e) {
+            console.error("Failed to construct shareable url data", e);
+            return null;
+        }
+    },
+
+    // Import the plan from a Base64 string found in the URL parameter
+    importFromUrl: function (base64Str) {
+        try {
+            const decoded = decodeURIComponent(escape(atob(base64Str)));
+            const parsedPlan = JSON.parse(decoded);
+            // Verify structure lightly
+            if (parsedPlan && parsedPlan.meals && Array.isArray(parsedPlan.meals)) {
+                this.savePlan(parsedPlan);
+                return true;
+            }
+        } catch (e) {
+            console.error("Failed to parse shared plan data", e);
+        }
+        return false;
     }
 };

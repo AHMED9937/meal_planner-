@@ -276,6 +276,26 @@ document.addEventListener('DOMContentLoaded', () => {
         saveAndRefresh();
     });
 
+    document.getElementById('btn-share-link').addEventListener('click', () => {
+        const base64Data = DataManager.exportToUrl();
+        if (base64Data) {
+            // Get current base URL without manage.html
+            const baseUrl = window.location.href.split('manage.html')[0];
+            const shareUrl = `${baseUrl}index.html?plan=${base64Data}`;
+
+            // Try to copy to clipboard
+            navigator.clipboard.writeText(shareUrl).then(() => {
+                alert("تم نسخ رابط المشاركة بنجاح! يمكن لأي شخص يفتح هذا الرابط رؤية خطتك المخصصة.");
+            }).catch(err => {
+                console.error("Failed to copy link", err);
+                // Fallback prompt
+                prompt("انسخ الرابط التالي للمشاركة:", shareUrl);
+            });
+        } else {
+            alert("حدث خطأ أثناء إنشاء الرابط.");
+        }
+    });
+
     document.getElementById('btn-reset-all').addEventListener('click', () => {
         if (confirm('تحذير: هذا سيحذف جميع تعديلاتك ويعيد الخطة الافتراضية. هل أنت متأكد؟')) {
             DataManager.resetToDefault();
