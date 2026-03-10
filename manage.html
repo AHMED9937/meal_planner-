@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Plan - Mind2Muscle</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Montserrat:wght@700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="manage-page">
+
+    <div class="watermark"></div>
+
+    <div class="container manage-container">
+
+        <header class="header-section">
+            <h1 class="main-title">إدارة الخطة الغذائية</h1>
+            <p class="subtitle" style="margin-bottom:1rem;">قم بتعديل الوجبات، إضافة الأطعمة، وإعداد قائمة البدائل
+                الخاصة بك</p>
+            <div class="header-action">
+                <a href="index.html" class="btn"><i class="fa-solid fa-arrow-right"></i> العودة للوحة الرئيسية</a>
+                <button id="btn-reset-all" class="btn btn-danger"><i class="fa-solid fa-rotate-left"></i> استعادة الخطة
+                    الأصلية (الافتراضية)</button>
+            </div>
+        </header>
+
+        <div class="management-grid">
+
+            <!-- Left sidebar: List of Meals -->
+            <div class="card sidebar-card" id="sidebar">
+                <div class="card-header">
+                    <h2 class="section-title">الوجبات</h2>
+                    <button id="btn-add-meal" class="btn-icon" title="إضافة وجبة جديدة"><i
+                            class="fa-solid fa-plus"></i></button>
+                </div>
+                <div class="card-body" id="meals-list">
+                    <!-- Populated by manage.js -->
+                </div>
+            </div>
+
+            <!-- Right area: Editor (Meal info, or Component info depending on selection) -->
+            <div class="card editor-card" id="editor">
+                <div class="card-header">
+                    <h2 class="section-title" id="editor-title">اختر وجبة للتعديل</h2>
+                </div>
+                <div class="card-body" id="editor-content">
+                    <div class="empty-state">
+                        <i class="fa-solid fa-hand-pointer"></i>
+                        <p>يرجى اختيار وجبة أو طعام من القائمة الجانبية لإدارته.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Toast Notification -->
+        <div id="save-toast" class="toast">
+            <i class="fa-solid fa-check-circle"></i> تم حفظ التغييرات بنجاح
+        </div>
+    </div>
+
+    <!-- Data Manager and Manage Logic -->
+    <script src="data.js"></script>
+    <script src="manage.js"></script>
+</body>
+
+</html>
