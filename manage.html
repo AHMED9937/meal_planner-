@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Plan - Mind2Muscle</title>
+    <title>إدارة قاعدة البيانات الغذائية</title>
     <link
         href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Montserrat:wght@700;900&display=swap"
         rel="stylesheet">
@@ -19,54 +19,63 @@
     <div class="container manage-container">
 
         <header class="header-section">
-            <h1 class="main-title">إدارة الخطة الغذائية</h1>
-            <p class="subtitle" style="margin-bottom:1rem;">قم بتعديل الوجبات، إضافة الأطعمة، وإعداد قائمة البدائل
-                الخاصة بك</p>
+            <h1 class="main-title">قاعدة البيانات الغذائية</h1>
+            <p class="subtitle" style="margin-bottom:1rem;">قم بإدارة الأطعمة، و بناء قوالب الوجبات، وتحديد جدولك اليومي
+            </p>
             <div class="header-action">
                 <a href="index.html" class="btn"><i class="fa-solid fa-arrow-right"></i> العودة للوحة الرئيسية</a>
                 <button id="btn-share-link" class="btn btn-primary" style="background:var(--accent-green);"><i
                         class="fa-solid fa-share-nodes"></i> مشاركة الخطة كرابط</button>
-                <button id="btn-reset-all" class="btn btn-danger"><i class="fa-solid fa-rotate-left"></i> استعادة الخطة
-                    الأصلية (الافتراضية)</button>
+                <button id="btn-reset-all" class="btn btn-danger"><i class="fa-solid fa-rotate-left"></i> إستعادة
+                    الافتراضي</button>
             </div>
         </header>
 
+        <!-- Tabs Navigation -->
+        <div class="tabs-nav">
+            <button class="tab-btn active" data-tab="foods"><i class="fa-solid fa-apple-whole"></i> ١. مكتبة
+                الأطعمة</button>
+            <button class="tab-btn" data-tab="meals"><i class="fa-solid fa-bowl-food"></i> ٢. قوالب الوجبات</button>
+            <button class="tab-btn" data-tab="schedule"><i class="fa-solid fa-calendar-days"></i> ٣. الجدول
+                اليومي</button>
+        </div>
+
         <div class="management-grid">
 
-            <!-- Left sidebar: List of Meals -->
+            <!-- Left Sidebar (Dynamic List) -->
             <div class="card sidebar-card" id="sidebar">
                 <div class="card-header">
-                    <h2 class="section-title">الوجبات</h2>
-                    <button id="btn-add-meal" class="btn-icon" title="إضافة وجبة جديدة"><i
+                    <h2 class="section-title" id="sidebar-title">العناصر</h2>
+                    <button id="btn-add-item" class="btn-icon" title="إضافة جديد"><i
                             class="fa-solid fa-plus"></i></button>
                 </div>
-                <div class="card-body" id="meals-list">
+                <div class="card-body" id="list-container">
                     <!-- Populated by manage.js -->
                 </div>
             </div>
 
-            <!-- Right area: Editor (Meal info, or Component info depending on selection) -->
+            <!-- Right Area (Editor) -->
             <div class="card editor-card" id="editor">
                 <div class="card-header">
-                    <h2 class="section-title" id="editor-title">اختر وجبة للتعديل</h2>
+                    <h2 class="section-title" id="editor-title">اختر عنصراً للتعديل</h2>
                 </div>
                 <div class="card-body" id="editor-content">
                     <div class="empty-state">
                         <i class="fa-solid fa-hand-pointer"></i>
-                        <p>يرجى اختيار وجبة أو طعام من القائمة الجانبية لإدارته.</p>
+                        <p>اختر من القائمة الجانبية.</p>
                     </div>
                 </div>
             </div>
 
         </div>
 
-        <!-- Toast Notification -->
         <div id="save-toast" class="toast">
             <i class="fa-solid fa-check-circle"></i> تم حفظ التغييرات بنجاح
         </div>
     </div>
 
-    <!-- Data Manager and Manage Logic -->
+    <!-- Searchable Select Modal (Injected via JS but styled in CSS) -->
+
     <script src="data.js"></script>
     <script src="manage.js"></script>
 </body>

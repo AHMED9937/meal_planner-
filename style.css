@@ -600,6 +600,121 @@ textarea.form-control {
     bottom: 30px;
 }
 
+/* =========================================
+   RELATIONAL DATABASE UI (TABS & DROPDOWNS)
+   ========================================= */
+
+.tabs-nav {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    border-bottom: 2px solid var(--card-border);
+    padding-bottom: 1rem;
+}
+
+.tab-btn {
+    background: transparent;
+    color: var(--text-secondary);
+    border: none;
+    font-size: 1.2rem;
+    font-family: 'Tajawal', sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.tab-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+}
+
+.tab-btn.active {
+    background: var(--highlight-bg);
+    color: var(--accent-red);
+}
+
+/* Searchable Custom Dropdown */
+.searchable-dropdown {
+    position: relative;
+    width: 100%;
+    font-family: 'Tajawal', sans-serif;
+}
+
+.dropdown-header {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--card-border);
+    color: white;
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: border-color 0.3s;
+}
+
+.dropdown-header:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.dropdown-body {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    width: 100%;
+    background: #1e222a;
+    /* Solid dark */
+    border: 1px solid var(--accent-red);
+    border-radius: 8px;
+    z-index: 999;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+}
+
+.dropdown-search {
+    border: none !important;
+    border-bottom: 1px solid var(--card-border) !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+}
+
+.dropdown-list {
+    list-style: none;
+    max-height: 200px;
+    overflow-y: auto;
+    margin: 0;
+    padding: 0;
+}
+
+.dropdown-list li {
+    padding: 0.8rem 1rem;
+    cursor: pointer;
+    color: var(--text-primary);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+    transition: background 0.2s;
+}
+
+.dropdown-list li:hover {
+    background: rgba(230, 57, 70, 0.2);
+}
+
+.dropdown-list li.selected {
+    background: rgba(230, 57, 70, 0.4);
+    font-weight: 700;
+}
+
+.dropdown-action {
+    padding: 0.8rem;
+    border-top: 1px solid var(--card-border);
+    background: rgba(0, 0, 0, 0.2);
+}
+
 /* Animations */
 @keyframes fadeInUp {
     from {
@@ -623,4 +738,54 @@ textarea.form-control {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+
+/* =========================================
+   MACRONUTRIENTS BADGES
+   ========================================= */
+
+.comp-macros {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.macro-badge {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+    /* Monospace-like for numbers */
+}
+
+.highlight-macro {
+    color: var(--accent-red);
+    border-color: rgba(230, 57, 70, 0.3);
+}
+
+.meal-total-macros {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    border-left: 3px solid var(--accent-green);
+    margin-top: 0.5rem;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.meal-total-macros span strong {
+    color: var(--text-primary);
+    font-family: 'Tajawal', sans-serif;
+    margin-left: 0.5rem;
+    /* RTL padding */
 }

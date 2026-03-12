@@ -1,8 +1,8 @@
-// data.js - Centralized State Manager
+// data.js - Relational Database State Manager (Contextual Alternatives + Macros)
 
-const STORAGE_KEY = 'm2m_nutrition_plan_data';
+const STORAGE_KEY = 'm2m_relational_plan_v4'; // Bumped version for new schema
 
-// The default schema representing the initial Mind2Muscle plan.
+// The default schema representing the relational database concept
 const defaultData = {
     planTitle: "Nutrition Plan",
     planSubtitle: "خطة التغذية المخصصة",
@@ -11,118 +11,84 @@ const defaultData = {
         "مراعات النوم الجيد",
         "أيام بدون تمرين ( الجمعة )"
     ],
-    meals: [
-        {
-            id: "m1",
-            title: "MEAL 1",
-            time: "الساعة (5:00)",
+
+    // Table 1: Global Food Library
+    // An object mapping foodId -> foodObject (Foods are now just primitive naming blocks)
+    foodsLibrary: {
+        "f_dates": { name: "3 تمرات", macros: { p: 1, c: 20, f: 0, cal: 85 } },
+        "f_juice": { name: "عصير ( 1 موزة + نص كوب لبن قليل الدسم 120مل )", macros: { p: 5, c: 35, f: 2, cal: 170 } },
+        "f_chicken_400": { name: "صدر فرخة مشوي (g400)", macros: { p: 124, c: 0, f: 14, cal: 660 } },
+        "f_meat_150": { name: "لحمة مشوية او مسلوقة (g150)", macros: { p: 39, c: 0, f: 12, cal: 260 } },
+        "f_fish_450": { name: "سمك مشوي (g450)", macros: { p: 90, c: 0, f: 10, cal: 480 } },
+        "f_tuna_420": { name: "تونة مصفاة (g420)", macros: { p: 95, c: 0, f: 4, cal: 440 } },
+        "f_rice_150": { name: "ارز ابيض (g150)", macros: { p: 4, c: 42, f: 0, cal: 195 } },
+        "f_salad": { name: "طبق سلطة بالليمون", macros: { p: 2, c: 10, f: 0, cal: 50 } },
+        "f_veg_250": { name: "خضار مطبوخ (g250)", macros: { p: 5, c: 20, f: 0, cal: 100 } },
+        "f_orange": { name: "برتقالة متوسطة", macros: { p: 1, c: 15, f: 0, cal: 62 } },
+        "f_potato_200": { name: "بطاطا مشوية او مسلوقة (g200)", macros: { p: 4, c: 40, f: 0, cal: 170 } },
+        "f_yogurt_250": { name: "علبة زبادي يوناني لايت (g250)", macros: { p: 15, c: 10, f: 0, cal: 100 } },
+        "f_chicken_250": { name: "صدر فراخ مشوية (g250)", macros: { p: 77, c: 0, f: 9, cal: 412 } },
+        "f_thighs_200": { name: "وراك فراخ مشوية (g200) - ملاحظة: استبدل بيضة كاملة ببياض في الوجبة 5", macros: { p: 48, c: 0, f: 16, cal: 350 } },
+        "f_eggs": { name: "1 بيضة كاملة + 5 بياض بيض", macros: { p: 24, c: 1, f: 5, cal: 150 } },
+        "f_cottage_100": { name: "جبنة قريش (g100)", macros: { p: 11, c: 3, f: 4, cal: 98 } },
+        "f_beans_250": { name: "فول (g250)", macros: { p: 15, c: 40, f: 1, cal: 230 } }
+    },
+
+    // Table 2: Global Meal Templates Library
+    // An object mapping mealTemplateId -> mealObject
+    // Alternatives are now securely defined in the Component slot
+    mealsLibrary: {
+        "mt_1": {
+            name: "MEAL 1 (Pre-workout)",
             components: [
-                {
-                    id: "m1-c1",
-                    activeItem: "3 تمرات",
-                    alternatives: []
-                },
-                {
-                    id: "m1-c2",
-                    activeItem: "عصير ( 1 موزة + نص كوب لبن قليل الدسم 120مل )",
-                    alternatives: []
-                }
+                { activeFoodId: "f_dates", allowedAlternatives: [] },
+                { activeFoodId: "f_juice", allowedAlternatives: [] }
             ]
         },
-        {
-            id: "m2",
-            title: "MEAL 2",
-            time: "الساعة ( 6:10 )",
+        "mt_2": {
+            name: "MEAL 2 (Post-workout)",
             components: [
-                {
-                    id: "m2-c1",
-                    activeItem: "صدر فرخة مشوي (g400)",
-                    alternatives: [
-                        "لحمة مشوية او مسلوقة (g150)",
-                        "سمك مشوي (g450)",
-                        "تونة مصفاة (g420)"
-                    ]
-                },
-                {
-                    id: "m2-c2",
-                    activeItem: "ارز ابيض (g150)",
-                    alternatives: []
-                },
-                {
-                    id: "m2-c3",
-                    activeItem: "طبق سلطة بالليمون",
-                    alternatives: []
-                },
-                {
-                    id: "m2-c4",
-                    activeItem: "خضار مطبوخ (g250)",
-                    alternatives: []
-                }
+                { activeFoodId: "f_chicken_400", allowedAlternatives: ["f_meat_150", "f_fish_450", "f_tuna_420"] },
+                { activeFoodId: "f_rice_150", allowedAlternatives: [] },
+                { activeFoodId: "f_salad", allowedAlternatives: [] },
+                { activeFoodId: "f_veg_250", allowedAlternatives: [] }
             ]
         },
-        {
-            id: "m3",
-            title: "MEAL 3",
-            time: "الساعة (9:00)",
+        "mt_3": {
+            name: "MEAL 3 (Snack)",
             components: [
-                {
-                    id: "m3-c1",
-                    activeItem: "برتقالة متوسطة",
-                    alternatives: []
-                },
-                {
-                    id: "m3-c2",
-                    activeItem: "بطاطا مشوية او مسلوقة (g200)",
-                    alternatives: []
-                }
+                { activeFoodId: "f_orange", allowedAlternatives: [] },
+                { activeFoodId: "f_potato_200", allowedAlternatives: [] }
             ]
         },
-        {
-            id: "m4",
-            title: "MEAL 4",
-            time: "الساعة (11:00)",
+        "mt_4": {
+            name: "MEAL 4 (Dinner)",
             components: [
-                {
-                    id: "m4-c1",
-                    activeItem: "علبة زبادي يوناني لايت (g250)",
-                    alternatives: []
-                },
-                {
-                    id: "m4-c2",
-                    activeItem: "صدر فراخ مشوية (g250)",
-                    alternatives: [
-                        "وراك فراخ مشوية (g200) - ملاحظة: استبدل بيضة كاملة ببياض في الوجبة 5"
-                    ]
-                }
+                { activeFoodId: "f_yogurt_250", allowedAlternatives: [] },
+                { activeFoodId: "f_chicken_250", allowedAlternatives: ["f_thighs_200"] }
             ]
         },
-        {
-            id: "m5",
-            title: "MEAL 5",
-            time: "الساعة ( 4:30 )",
+        "mt_5": {
+            name: "MEAL 5 (Late Snack)",
             components: [
-                {
-                    id: "m5-c1",
-                    activeItem: "1 بيضة كاملة + 5 بياض بيض",
-                    alternatives: []
-                },
-                {
-                    id: "m5-c2",
-                    activeItem: "جبنة قريش (g100)",
-                    alternatives: []
-                },
-                {
-                    id: "m5-c3",
-                    activeItem: "فول (g250)",
-                    alternatives: []
-                }
+                { activeFoodId: "f_eggs", allowedAlternatives: [] },
+                { activeFoodId: "f_cottage_100", allowedAlternatives: [] },
+                { activeFoodId: "f_beans_250", allowedAlternatives: [] }
             ]
         }
+    },
+
+    // Table 3: Active Dashboard Schedule
+    activePlan: [
+        { id: "schedule_1", time: "الساعة (5:00)", mealTemplateId: "mt_1" },
+        { id: "schedule_2", time: "الساعة ( 6:10 )", mealTemplateId: "mt_2" },
+        { id: "schedule_3", time: "الساعة (9:00)", mealTemplateId: "mt_3" },
+        { id: "schedule_4", time: "الساعة (11:00)", mealTemplateId: "mt_4" },
+        { id: "schedule_5", time: "الساعة ( 4:30 )", mealTemplateId: "mt_5" }
     ]
 };
 
 const DataManager = {
-    // Load the plan from local storage or get the default
     loadPlan: function () {
         const stored = localStorage.getItem(STORAGE_KEY);
         if (stored) {
@@ -133,32 +99,29 @@ const DataManager = {
                 return JSON.parse(JSON.stringify(defaultData));
             }
         } else {
-            // deep copy default
             return JSON.parse(JSON.stringify(defaultData));
         }
     },
 
-    // Save the entire plan object to local storage
     savePlan: function (planData) {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(planData));
     },
 
-    // Reset back to defaults
     resetToDefault: function () {
         localStorage.removeItem(STORAGE_KEY);
+        // Clean legacy
+        localStorage.removeItem('m2m_nutrition_plan_data');
+        localStorage.removeItem('m2m_relational_plan_v2');
         return this.loadPlan();
     },
 
-    // Helper to generate unique IDs
     generateId: function (prefix) {
-        return prefix + '-' + Math.random().toString(36).substr(2, 9);
+        return prefix + '_' + Math.random().toString(36).substr(2, 9);
     },
 
-    // Convert deeply nested plan to a highly compressed Base64 string for URL sharing
     exportToUrl: function () {
         const plan = this.loadPlan();
         try {
-            // Unescape + encodeURIComponent trick to safely btoa unicode (Arabic)
             const stringified = JSON.stringify(plan);
             const encoded = btoa(unescape(encodeURIComponent(stringified)));
             return encoded;
@@ -168,13 +131,19 @@ const DataManager = {
         }
     },
 
-    // Import the plan from a Base64 string found in the URL parameter
     importFromUrl: function (base64Str) {
         try {
             const decoded = decodeURIComponent(escape(atob(base64Str)));
             const parsedPlan = JSON.parse(decoded);
-            // Verify structure lightly
-            if (parsedPlan && parsedPlan.meals && Array.isArray(parsedPlan.meals)) {
+            if (parsedPlan && parsedPlan.foodsLibrary && parsedPlan.mealsLibrary) {
+                // simple migration check if importing v2
+                if (parsedPlan.mealsLibrary) {
+                    Object.values(parsedPlan.mealsLibrary).forEach(ml => {
+                        ml.components.forEach(c => {
+                            if (!c.allowedAlternatives) c.allowedAlternatives = [];
+                        });
+                    });
+                }
                 this.savePlan(parsedPlan);
                 return true;
             }
