@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المراقبة الأسبوعية والشهرية - Mind2Muscle</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Montserrat:wght@700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="progress.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="home-page progress-page">
+
+    <div class="watermark"></div>
+
+    <div class="container">
+        <header class="header-section" style="margin-bottom:1.5rem;">
+            <h1 class="main-title" style="font-size:1.75rem;">المراقبة والتقدم</h1>
+            <p class="subtitle">تتبع الوزن، التركيب، والقيمة الغذائية عبر الأسبوع والشهر</p>
+            <div class="header-action">
+                <a href="index.html" class="btn btn-secondary"><i class="fa-solid fa-arrow-right"></i> اليومية</a>
+                <a href="manage.html" class="btn btn-primary"><i class="fa-solid fa-gear"></i> إدارة الخطة</a>
+            </div>
+        </header>
+
+        <nav class="progress-tabs" role="tablist">
+            <button type="button" class="progress-tab active" data-tab="body" role="tab">الجسم</button>
+            <button type="button" class="progress-tab" data-tab="week" role="tab">تغذية أسبوعية</button>
+            <button type="button" class="progress-tab" data-tab="month" role="tab">تغذية شهرية</button>
+            <button type="button" class="progress-tab" data-tab="foodlog" role="tab">سجل الطعام</button>
+        </nav>
+
+        <!-- Body metrics -->
+        <section class="progress-panel active" data-panel="body" id="panel-body">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="section-title" style="margin:0;">قياسات الجسم</h2>
+                </div>
+                <div class="card-body">
+                    <form id="body-metric-form" class="body-form">
+                        <div class="body-form-row">
+                            <div class="form-group">
+                                <label for="body-date">التاريخ</label>
+                                <input type="date" id="body-date" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="body-weight">الوزن (كغ)</label>
+                                <input type="number" id="body-weight" class="form-control" step="0.1" min="0" placeholder="—">
+                            </div>
+                            <div class="form-group">
+                                <label for="body-fat">دهون الجسم (%)</label>
+                                <input type="number" id="body-fat" class="form-control" step="0.1" min="0" max="100" placeholder="—">
+                            </div>
+                            <div class="form-group">
+                                <label for="body-muscle">كتلة العضلات (كغ)</label>
+                                <input type="number" id="body-muscle" class="form-control" step="0.1" min="0" placeholder="—">
+                            </div>
+                            <div class="form-group">
+                                <label for="body-waist">محيط الخصر (سم)</label>
+                                <input type="number" id="body-waist" class="form-control" step="0.1" min="0" placeholder="—">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="body-note">ملاحظة</label>
+                            <input type="text" id="body-note" class="form-control" placeholder="اختياري">
+                        </div>
+                        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> حفظ القياس</button>
+                    </form>
+                </div>
+            </div>
+            <div class="card" style="margin-top:1rem;">
+                <div class="card-header">
+                    <h2 class="section-title" style="margin:0;">سجل القياسات</h2>
+                </div>
+                <div class="card-body">
+                    <div id="body-metrics-table"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Weekly nutrition -->
+        <section class="progress-panel" data-panel="week" id="panel-week" hidden>
+            <div class="period-controls card">
+                <div class="card-body period-controls-inner">
+                    <button type="button" class="btn btn-secondary btn-sm" id="week-prev"><i class="fa-solid fa-chevron-right"></i></button>
+                    <span id="week-range-label" class="period-label"></span>
+                    <button type="button" class="btn btn-secondary btn-sm" id="week-next"><i class="fa-solid fa-chevron-left"></i></button>
+                    <button type="button" class="btn btn-sm" id="week-this">هذا الأسبوع</button>
+                </div>
+            </div>
+            <div id="week-report"></div>
+        </section>
+
+        <!-- Monthly nutrition -->
+        <section class="progress-panel" data-panel="month" id="panel-month" hidden>
+            <div class="period-controls card">
+                <div class="card-body period-controls-inner">
+                    <button type="button" class="btn btn-secondary btn-sm" id="month-prev"><i class="fa-solid fa-chevron-right"></i></button>
+                    <span id="month-range-label" class="period-label"></span>
+                    <button type="button" class="btn btn-secondary btn-sm" id="month-next"><i class="fa-solid fa-chevron-left"></i></button>
+                    <button type="button" class="btn btn-sm" id="month-this">هذا الشهر</button>
+                </div>
+            </div>
+            <div id="month-report"></div>
+        </section>
+
+        <!-- Food log -->
+        <section class="progress-panel" data-panel="foodlog" id="panel-foodlog" hidden>
+            <div class="period-controls card">
+                <div class="card-body period-controls-inner">
+                    <label class="foodlog-filter">
+                        <input type="checkbox" id="foodlog-flagged-only"> عرض المُعلَّم للمراجعة فقط
+                    </label>
+                    <select id="foodlog-range" class="form-control" style="max-width:160px;">
+                        <option value="week">هذا الأسبوع</option>
+                        <option value="month">هذا الشهر</option>
+                        <option value="30">آخر 30 يوم</option>
+                    </select>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="section-title" style="margin:0;">الإضافات والأطعمة المسجّلة</h2>
+                    <span class="text-muted" style="font-size:0.85rem;">علّم الخطأ من الصفحة اليومية بزر <i class="fa-solid fa-flag"></i></span>
+                </div>
+                <div class="card-body">
+                    <div id="food-log-table"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="progress.js"></script>
+</body>
+
+</html>

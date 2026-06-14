@@ -1,0 +1,325 @@
+/* Dashboard — aligns with main app (style.css), light touch only */
+
+.home-page .header-section {
+    margin-bottom: 2rem;
+}
+
+.home-page .week-day-nav {
+    margin-bottom: 1.25rem;
+}
+
+/* Sticky section jump links */
+.dash-jump-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    padding: 0.5rem;
+    position: sticky;
+    top: 0.5rem;
+    z-index: 40;
+    background: rgba(18, 20, 24, 0.92);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+}
+
+.dash-jump-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+}
+
+.dash-jump-link:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.dash-jump-link.is-active {
+    color: white;
+    background: rgba(230, 57, 70, 0.25);
+}
+
+.dash-section {
+    margin-bottom: 2rem;
+    scroll-margin-top: 5rem;
+}
+
+.section-head {
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 1.25rem;
+    font-weight: 800;
+    margin: 0 0 0.25rem;
+}
+
+.section-desc {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* Summary card */
+.summary-shell .card.summary-card {
+    animation: none;
+}
+
+.summary-card .card-body {
+    padding: 1.25rem 1.5rem;
+}
+
+.summary-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.summary-metric {
+    text-align: center;
+    padding: 0.85rem 0.5rem;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.summary-metric-label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.35rem;
+}
+
+.summary-metric-value {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.75rem;
+    font-weight: 800;
+    line-height: 1.1;
+}
+
+.summary-metric--eaten .summary-metric-value {
+    color: var(--accent-green);
+}
+
+.summary-metric--diff.summary-over .summary-metric-value {
+    color: #ff8a8a;
+}
+
+.summary-metric--diff.summary-under .summary-metric-value {
+    color: #7ec8ff;
+}
+
+.summary-progress-wrap {
+    margin-bottom: 0.75rem;
+}
+
+.summary-progress-label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.35rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.summary-progress-track {
+    height: 8px;
+    background: rgba(0, 0, 0, 0.35);
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.summary-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-green), var(--accent-yellow));
+    border-radius: 999px;
+    transition: width 0.3s ease;
+}
+
+.summary-status {
+    font-size: 0.9rem;
+    text-align: center;
+    padding: 0.6rem;
+    border-radius: 8px;
+    margin: 0 0 0.75rem;
+}
+
+.summary-status--over {
+    background: rgba(230, 57, 70, 0.12);
+    color: #ffb4b4;
+}
+
+.summary-status--under {
+    background: rgba(52, 152, 219, 0.12);
+    color: #9ed4ff;
+}
+
+.summary-status--even {
+    background: rgba(46, 204, 113, 0.1);
+    color: #9ae6c4;
+}
+
+.summary-details summary {
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--accent-yellow);
+    font-size: 0.9rem;
+    padding: 0.35rem 0;
+}
+
+.summary-details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 0.75rem;
+}
+
+.summary-details-block h4 {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin: 0 0 0.5rem;
+}
+
+/* Meal cards — eaten state */
+.meal-card--eaten {
+    border-color: rgba(42, 157, 143, 0.45);
+    box-shadow: 0 0 0 1px rgba(42, 157, 143, 0.15);
+}
+
+.meal-eaten-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.65rem 1.25rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid var(--card-border);
+}
+
+.meal-eaten-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 0.95rem;
+    user-select: none;
+}
+
+.meal-eaten-label input {
+    width: 1.1rem;
+    height: 1.1rem;
+    accent-color: var(--accent-green);
+}
+
+.meal-eaten-badge {
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-secondary);
+}
+
+.meal-card--eaten .meal-eaten-badge {
+    background: rgba(42, 157, 143, 0.2);
+    color: #9ae6c4;
+}
+
+.meal-card-cal {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--accent-yellow);
+    white-space: nowrap;
+}
+
+.meal-details-toggle {
+    border-top: 1px solid var(--card-border);
+}
+
+.meal-details-toggle summary {
+    padding: 0.75rem 1.25rem;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--accent-yellow);
+    list-style-position: inside;
+}
+
+.meal-details-toggle .card-body {
+    padding-top: 0;
+    border-top: none;
+}
+
+/* Extras */
+.extras-card-header {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.extras-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.extra-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.extra-item-info strong {
+    display: block;
+    font-size: 0.95rem;
+}
+
+.extra-item-info span {
+    font-size: 0.8rem;
+    color: var(--accent-yellow);
+    font-family: 'Montserrat', sans-serif;
+}
+
+.extras-empty {
+    text-align: center;
+    padding: 1.5rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.home-page .meals-grid {
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+}
+
+@media (max-width: 640px) {
+    .summary-metrics {
+        grid-template-columns: 1fr;
+    }
+
+    .home-page .meals-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dash-jump-nav {
+        top: 0;
+        border-radius: 0;
+        margin-left: -0.5rem;
+        margin-right: -0.5rem;
+    }
+}

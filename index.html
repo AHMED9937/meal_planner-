@@ -5,59 +5,135 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mind2Muscle - Nutrition Plan</title>
-    <!-- Google Fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Montserrat:wght@700;900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <!-- Font Awesome -->
+    <link rel="stylesheet" href="dashboard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
-<body>
+<body class="home-page">
 
-    <!-- Watermark Background -->
     <div class="watermark"></div>
 
     <div class="container">
-        <!-- Header Section -->
         <header class="header-section">
             <div class="logo-container">
-                <img src="image1_1.jpeg" alt="Mind2Muscle Logo" class="logo" id="main-logo"
+                <img src="image1_1.jpeg" alt="Mind2Muscle" class="logo" id="main-logo"
                     onerror="this.src='image1_3.png'; if(this.src=='image1_3.png') {this.onerror=function(){this.style.display='none';}}">
             </div>
             <h1 class="main-title" id="plan-title">Nutrition Plan</h1>
             <p class="subtitle" id="plan-subtitle">خطة التغذية المخصصة</p>
-
-            <!-- Global Edit Plan Button -->
             <div class="header-action">
-                <a href="manage.html" class="btn btn-primary"><i class="fa-solid fa-gear"></i> إدارة الخطة والبدائل</a>
+                <a href="progress.html" class="btn btn-secondary"><i class="fa-solid fa-chart-line"></i> المراقبة</a>
+                <a href="manage.html" class="btn btn-primary"><i class="fa-solid fa-gear"></i> إدارة الخطة</a>
+                <a href="manage.html?tab=grocery" class="btn btn-secondary"><i class="fa-solid fa-cart-shopping"></i> المشتريات</a>
             </div>
         </header>
 
-        <!-- Dynamic Meals Container -->
-        <div class="meals-grid" id="meals-container">
-            <!-- Rendered by app.js -->
-        </div>
+        <nav class="week-day-nav" id="week-day-nav" aria-label="أيام الأسبوع"></nav>
 
-        <div class="extras-grid">
-            <!-- Dynamic Rules Section -->
-            <div class="card rules-card" style="grid-column: 1 / -1;">
+        <nav class="dash-jump-nav" aria-label="أقسام الصفحة">
+            <a href="#section-summary" class="dash-jump-link"><i class="fa-solid fa-chart-pie"></i> الملخص</a>
+            <a href="#section-meals" class="dash-jump-link"><i class="fa-solid fa-utensils"></i> الوجبات</a>
+            <a href="#section-extras" class="dash-jump-link"><i class="fa-solid fa-plus"></i> الإضافات</a>
+            <a href="#section-rules" class="dash-jump-link"><i class="fa-solid fa-clipboard-list"></i> القواعد</a>
+        </nav>
+
+        <section id="section-summary" class="dash-section">
+            <div id="day-macros-summary" class="summary-shell" aria-live="polite"></div>
+        </section>
+
+        <section id="section-meals" class="dash-section">
+            <div class="section-head">
+                <h2 class="section-title" id="meals-section-title">وجبات اليوم</h2>
+                <p class="section-desc">ضع علامة ✓ على كل وجبة أكلتها</p>
+            </div>
+            <div class="meals-grid" id="meals-container"></div>
+        </section>
+
+        <section id="section-extras" class="dash-section">
+            <div class="card extras-card">
+                <div class="card-header extras-card-header">
+                    <div>
+                        <h2 class="section-title">طعام إضافي</h2>
+                        <p class="section-desc">ما أكلته خارج جدول الوجبات</p>
+                    </div>
+                    <button type="button" id="btn-add-intake" class="btn btn-primary">
+                        <i class="fa-solid fa-plus"></i> إضافة
+                    </button>
+                </div>
+                <div class="card-body">
+                    <div id="intake-extras-list" class="extras-list"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="section-rules" class="dash-section">
+            <div class="card rules-card">
                 <div class="card-header">
-                    <h2 class="section-title">RULES</h2>
+                    <h2 class="section-title">قواعد الخطة</h2>
                     <i class="fa-solid fa-clipboard-list header-icon"></i>
                 </div>
                 <div class="card-body">
-                    <ul class="rules-items" id="rules-container">
-                        <!-- Rendered by app.js -->
-                    </ul>
+                    <ul class="rules-items" id="rules-container"></ul>
                 </div>
             </div>
-        </div>
-
+        </section>
     </div>
 
-    <!-- Data Manager and App Logic -->
+    <div id="intake-modal" class="intake-modal" hidden aria-hidden="true" role="dialog" aria-labelledby="intake-modal-title" aria-modal="true">
+        <div class="intake-modal-backdrop" data-close-intake></div>
+        <div class="intake-modal-panel card">
+            <div class="intake-modal-header">
+                <h3 id="intake-modal-title">إضافة طعام</h3>
+                <button type="button" class="btn-icon" data-close-intake aria-label="إغلاق"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="intake-type-tabs">
+                <button type="button" class="intake-type-btn active" data-intake-type="meal">وجبة من القوالب</button>
+                <button type="button" class="intake-type-btn" data-intake-type="food">طعام من المكتبة</button>
+                <button type="button" class="intake-type-btn" data-intake-type="custom">إدخال يدوي</button>
+            </div>
+            <div class="intake-modal-body">
+                <div class="intake-form-panel" data-panel="meal">
+                    <label for="intake-meal-search">بحث</label>
+                    <input type="search" id="intake-meal-search" class="form-control" placeholder="ابحث عن وجبة...">
+                    <label for="intake-meal-select">الوجبة</label>
+                    <select id="intake-meal-select" class="form-control" size="5"></select>
+                    <label for="intake-meal-servings">عدد الحصص</label>
+                    <input type="number" id="intake-meal-servings" class="form-control" value="1" min="0.25" step="0.25">
+                </div>
+                <div class="intake-form-panel" data-panel="food" hidden>
+                    <label for="intake-food-search">بحث</label>
+                    <input type="search" id="intake-food-search" class="form-control" placeholder="ابحث عن طعام...">
+                    <label for="intake-food-select">الطعام</label>
+                    <select id="intake-food-select" class="form-control" size="5"></select>
+                    <label for="intake-food-amount">الكمية</label>
+                    <div class="intake-qty-row">
+                        <input type="number" id="intake-food-amount" class="form-control" value="1" min="0.01" step="0.01">
+                        <span id="intake-food-unit-label" class="intake-unit-label"></span>
+                    </div>
+                </div>
+                <div class="intake-form-panel" data-panel="custom" hidden>
+                    <label for="intake-custom-name">ماذا أكلت؟</label>
+                    <input type="text" id="intake-custom-name" class="form-control" placeholder="مثال: قهوة مع حليب">
+                    <p class="text-muted" style="margin:0.75rem 0 0.5rem;font-size:0.85rem;">القيم الغذائية (اختياري)</p>
+                    <div class="intake-custom-macros">
+                        <div><label for="intake-custom-p">بروتين</label><input type="number" id="intake-custom-p" class="form-control" min="0" step="0.1" value="0"></div>
+                        <div><label for="intake-custom-c">كربوهيدرات</label><input type="number" id="intake-custom-c" class="form-control" min="0" step="0.1" value="0"></div>
+                        <div><label for="intake-custom-f">دهون</label><input type="number" id="intake-custom-f" class="form-control" min="0" step="0.1" value="0"></div>
+                        <div><label for="intake-custom-cal">سعرات</label><input type="number" id="intake-custom-cal" class="form-control" min="0" step="0.1" value="0"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="intake-modal-footer">
+                <button type="button" class="btn btn-secondary" data-close-intake>إلغاء</button>
+                <button type="button" class="btn btn-primary" id="intake-modal-save"><i class="fa-solid fa-check"></i> حفظ</button>
+            </div>
+        </div>
+    </div>
+
     <script src="data.js"></script>
     <script src="app.js"></script>
 </body>
