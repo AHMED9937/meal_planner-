@@ -99,198 +99,900 @@ const QUANTITY_UNIT_SHORT = {
     tbsp: 'ملعقة'
 };
 
-// The default schema representing the relational database concept
+// Default nutrition plan (from shared Mind2Muscle template)
 const defaultData = {
-    planTitle: "Nutrition Plan",
-    planSubtitle: "خطة التغذية المخصصة",
-    rules: [
+    "planTitle": "Nutrition Plan",
+    "planSubtitle": "خطة التغذية المخصصة",
+    "rules": [
         "شرب 3 لتر على مدار اليوم (مهم جدا!!)",
         "مراعات النوم الجيد",
         "أيام بدون تمرين ( الجمعة )"
     ],
-
-    // Table 1: Global Food Library
-    // An object mapping foodId -> foodObject (Foods are now just primitive naming blocks)
-    foodsLibrary: {
+    "foodsLibrary": {
         "f_dates": {
-            name: "تمرات",
-            category: "fruits",
-            standardQuantity: { amount: 3, unit: "num" },
-            macros: { p: 1, c: 20, f: 0, cal: 85 }
+            "name": "3 تمرات",
+            "macros": {
+                "p": 1,
+                "c": 20,
+                "f": 0,
+                "cal": 85
+            },
+            "category": "fruits",
+            "minQuantity": {
+                "amount": 3,
+                "unit": "num"
+            },
+            "standardQuantity": {
+                "amount": 3,
+                "unit": "num"
+            }
         },
         "f_juice": {
-            name: "عصير ( 1 موزة + نص كوب لبن قليل الدسم 120مل )",
-            category: "fruits",
-            standardQuantity: { amount: 1, unit: "cup" },
-            macros: { p: 5, c: 35, f: 2, cal: 170 }
+            "name": "عصير ( 1 موزة + نص كوب لبن قليل الدسم 120مل )",
+            "macros": {
+                "p": 5,
+                "c": 35,
+                "f": 2,
+                "cal": 170
+            },
+            "category": "fruits",
+            "minQuantity": {
+                "amount": 1,
+                "unit": "cup"
+            },
+            "standardQuantity": {
+                "amount": 1,
+                "unit": "cup"
+            }
         },
         "f_chicken_400": {
-            name: "صدر فرخة مشوي",
-            category: "protein",
-            standardQuantity: { amount: 400, unit: "g" },
-            macros: { p: 124, c: 0, f: 14, cal: 660 }
+            "name": "صدر فرخة مشوي (g400)",
+            "macros": {
+                "p": 124,
+                "c": 0,
+                "f": 14,
+                "cal": 660
+            },
+            "category": "protein",
+            "minQuantity": {
+                "amount": 400,
+                "unit": "g"
+            },
+            "standardQuantity": {
+                "amount": 400,
+                "unit": "g"
+            }
         },
         "f_meat_150": {
-            name: "لحمة مشوية او مسلوقة",
-            category: "protein",
-            standardQuantity: { amount: 150, unit: "g" },
-            macros: { p: 39, c: 0, f: 12, cal: 260 }
+            "name": "لحمة مشوية او مسلوقة (g150)",
+            "macros": {
+                "p": 39,
+                "c": 0,
+                "f": 12,
+                "cal": 260
+            },
+            "category": "protein",
+            "minQuantity": {
+                "amount": 150,
+                "unit": "g"
+            },
+            "standardQuantity": {
+                "amount": 150,
+                "unit": "g"
+            }
         },
         "f_fish_450": {
-            name: "سمك مشوي",
-            category: "protein",
-            standardQuantity: { amount: 450, unit: "g" },
-            macros: { p: 90, c: 0, f: 10, cal: 480 }
+            "name": "سمك مشوي (g450)",
+            "macros": {
+                "p": 90,
+                "c": 0,
+                "f": 10,
+                "cal": 480
+            },
+            "category": "protein",
+            "minQuantity": {
+                "amount": 450,
+                "unit": "g"
+            },
+            "standardQuantity": {
+                "amount": 450,
+                "unit": "g"
+            }
         },
         "f_tuna_420": {
-            name: "تونة مصفاة",
-            category: "protein",
-            standardQuantity: { amount: 420, unit: "g" },
-            macros: { p: 95, c: 0, f: 4, cal: 440 }
+            "name": "تونة مصفاة (g420)",
+            "macros": {
+                "p": 95,
+                "c": 0,
+                "f": 4,
+                "cal": 440
+            },
+            "category": "protein",
+            "minQuantity": {
+                "amount": 420,
+                "unit": "g"
+            },
+            "standardQuantity": {
+                "amount": 420,
+                "unit": "g"
+            }
         },
         "f_rice_150": {
-            name: "ارز ابيض",
-            category: "carbs",
-            standardQuantity: { amount: 150, unit: "g" },
-            macros: { p: 4, c: 42, f: 0, cal: 195 }
+            "name": "ارز ابيض (g150)",
+            "macros": {
+                "p": 4,
+                "c": 42,
+                "f": 0,
+                "cal": 195
+            },
+            "category": "carbs",
+            "minQuantity": {
+                "amount": 150,
+                "unit": "g"
+            },
+            "standardQuantity": {
+                "amount": 150,
+                "unit": "g"
+            }
         },
         "f_salad": {
-            name: "طبق سلطة بالليمون",
-            category: "vegetables",
-            standardQuantity: { amount: 1, unit: "num" },
-            macros: { p: 2, c: 10, f: 0, cal: 50 }
+            "name": "طبق سلطة بالليمون",
+            "macros": {
+                "p": 2,
+                "c": 10,
+                "f": 0,
+                "cal": 50
+            },
+            "category": "vegetables",
+            "minQuantity": {
+                "amount": 1,
+                "unit": "num"
+            },
+            "standardQuantity": {
+                "amount": 1,
+                "unit": "num"
+            }
         },
         "f_veg_250": {
-            name: "خضار مطبوخ",
-            category: "vegetables",
-            standardQuantity: { amount: 250, unit: "g" },
-            macros: { p: 5, c: 20, f: 0, cal: 100 }
+            "name": "خضار مطبوخ (g250)",
+            "macros": {
+                "p": 5,
+                "c": 20,
+                "f": 0,
+                "cal": 100
+            },
+            "category": "vegetables",
+            "minQuantity": {
+                "amount": 250,
+                "unit": "g"
+            },
+            "standardQuantity": {
+                "amount": 250,
+                "unit": "g"
+            }
         },
         "f_orange": {
-            name: "برتقالة متوسطة",
-            category: "fruits",
-            standardQuantity: { amount: 1, unit: "num" },
-            macros: { p: 1, c: 15, f: 0, cal: 62 }
-        },
-        "f_potato_200": {
-            name: "بطاطا مشوية او مسلوقة",
-            category: "carbs",
-            standardQuantity: { amount: 200, unit: "g" },
-            macros: { p: 4, c: 40, f: 0, cal: 170 }
+            "name": "برتقالة متوسطة",
+            "macros": {
+                "p": 1,
+                "c": 15,
+                "f": 0,
+                "cal": 62
+            },
+            "category": "fruits",
+            "minQuantity": {
+                "amount": 1,
+                "unit": "num"
+            },
+            "standardQuantity": {
+                "amount": 1,
+                "unit": "num"
+            }
         },
         "f_yogurt_250": {
-            name: "علبة زبادي يوناني لايت",
-            category: "dairy",
-            standardQuantity: { amount: 250, unit: "g" },
-            macros: { p: 15, c: 10, f: 0, cal: 100 }
+            "name": "علبة زبادي يوناني لايت (g250)",
+            "macros": {
+                "p": 15,
+                "c": 10,
+                "f": 0,
+                "cal": 100
+            },
+            "category": "dairy",
+            "minQuantity": {
+                "amount": 250,
+                "unit": "g"
+            },
+            "standardQuantity": {
+                "amount": 250,
+                "unit": "g"
+            }
         },
         "f_chicken_250": {
-            name: "صدر فراخ مشوية",
-            category: "protein",
-            standardQuantity: { amount: 250, unit: "g" },
-            macros: { p: 77, c: 0, f: 9, cal: 412 }
+            "name": "صدر فراخ مشوية (g250)",
+            "macros": {
+                "p": 77,
+                "c": 0,
+                "f": 9,
+                "cal": 412
+            },
+            "category": "protein",
+            "minQuantity": {
+                "amount": 250,
+                "unit": "g"
+            },
+            "standardQuantity": {
+                "amount": 250,
+                "unit": "g"
+            }
         },
         "f_thighs_200": {
-            name: "وراك فراخ مشوية - ملاحظة: استبدل بيضة كاملة ببياض في الوجبة 5",
-            category: "protein",
-            standardQuantity: { amount: 200, unit: "g" },
-            macros: { p: 48, c: 0, f: 16, cal: 350 }
+            "name": "وراك فراخ مشوية (g200) - ملاحظة: استبدل بيضة كاملة ببياض في الوجبة 5",
+            "macros": {
+                "p": 48,
+                "c": 0,
+                "f": 16,
+                "cal": 350
+            },
+            "category": "protein",
+            "minQuantity": {
+                "amount": 200,
+                "unit": "g"
+            },
+            "standardQuantity": {
+                "amount": 200,
+                "unit": "g"
+            }
         },
         "f_eggs": {
-            name: "1 بيضة كاملة + 5 بياض بيض",
-            category: "protein",
-            standardQuantity: { amount: 6, unit: "num" },
-            macros: { p: 24, c: 1, f: 5, cal: 150 }
+            "name": "1 بيضة كاملة + 5 بياض بيض",
+            "macros": {
+                "p": 24,
+                "c": 1,
+                "f": 5,
+                "cal": 150
+            },
+            "category": "protein",
+            "minQuantity": {
+                "amount": 6,
+                "unit": "num"
+            },
+            "standardQuantity": {
+                "amount": 6,
+                "unit": "num"
+            }
         },
         "f_cottage_100": {
-            name: "جبنة قريش",
-            category: "dairy",
-            standardQuantity: { amount: 100, unit: "g" },
-            macros: { p: 11, c: 3, f: 4, cal: 98 }
+            "name": "جبنة قريش (g100)",
+            "macros": {
+                "p": 11,
+                "c": 3,
+                "f": 4,
+                "cal": 98
+            },
+            "category": "dairy",
+            "minQuantity": {
+                "amount": 100,
+                "unit": "g"
+            },
+            "standardQuantity": {
+                "amount": 100,
+                "unit": "g"
+            }
         },
         "f_beans_250": {
-            name: "فول",
-            category: "carbs",
-            standardQuantity: { amount: 250, unit: "g" },
-            macros: { p: 15, c: 40, f: 1, cal: 230 }
+            "name": "فول (g250)",
+            "macros": {
+                "p": 15,
+                "c": 40,
+                "f": 1,
+                "cal": 230
+            },
+            "category": "carbs",
+            "minQuantity": {
+                "amount": 250,
+                "unit": "g"
+            },
+            "standardQuantity": {
+                "amount": 250,
+                "unit": "g"
+            }
+        },
+        "f_x8qfli1ft": {
+            "name": "400 جرام من كفتة اللحم الأحمر (المشوي)",
+            "macros": {
+                "p": 100,
+                "c": 5,
+                "f": 60,
+                "cal": 1000
+            },
+            "minQuantity": {
+                "amount": 400,
+                "unit": "num"
+            },
+            "standardQuantity": {
+                "amount": 400,
+                "unit": "num"
+            },
+            "category": "protein"
+        },
+        "f_sk8qfv6wb": {
+            "name": "300 جرام من البطاطس",
+            "macros": {
+                "p": 5.1,
+                "c": 60,
+                "f": 0.3,
+                "cal": 260
+            },
+            "minQuantity": {
+                "amount": 300,
+                "unit": "num"
+            },
+            "standardQuantity": {
+                "amount": 300,
+                "unit": "num"
+            },
+            "category": "carbs"
+        },
+        "f_potato_200": {
+            "name": "بطاطا مشوية او مسلوقة",
+            "category": "carbs",
+            "minQuantity": {
+                "amount": 200,
+                "unit": "g"
+            },
+            "standardQuantity": {
+                "amount": 200,
+                "unit": "g"
+            },
+            "macros": {
+                "p": 4,
+                "c": 40,
+                "f": 0,
+                "cal": 170
+            }
         }
     },
-
-    // Table 2: Global Meal Templates Library
-    // An object mapping mealTemplateId -> mealObject
-    // Alternatives are now securely defined in the Component slot
-    mealsLibrary: {
+    "mealsLibrary": {
         "mt_1": {
-            name: "MEAL 1 (Pre-workout)",
-            category: "pre_workout",
-            allowedMealAlternatives: [],
-            components: [
-                { activeFoodId: "f_dates", allowedAlternatives: [] },
-                { activeFoodId: "f_juice", allowedAlternatives: [] }
-            ]
+            "name": "MEAL 1 (Pre-workout)",
+            "components": [
+                {
+                    "activeFoodId": "f_dates",
+                    "allowedAlternatives": [],
+                    "type": "food",
+                    "mealQuantity": {
+                        "amount": 3,
+                        "unit": "num"
+                    }
+                },
+                {
+                    "activeFoodId": "f_juice",
+                    "allowedAlternatives": [],
+                    "type": "food",
+                    "mealQuantity": {
+                        "amount": 1,
+                        "unit": "cup"
+                    }
+                }
+            ],
+            "category": "pre_workout",
+            "allowedMealAlternatives": []
         },
         "mt_2": {
-            name: "MEAL 2 (Post-workout)",
-            category: "post_workout",
-            allowedMealAlternatives: [],
-            components: [
-                { activeFoodId: "f_chicken_400", allowedAlternatives: ["f_meat_150", "f_fish_450", "f_tuna_420"] },
-                { activeFoodId: "f_rice_150", allowedAlternatives: [] },
-                { activeFoodId: "f_salad", allowedAlternatives: [] },
-                { activeFoodId: "f_veg_250", allowedAlternatives: [] }
-            ]
+            "name": "MEAL 2 (Post-workout)",
+            "components": [
+                {
+                    "activeFoodId": "f_x8qfli1ft",
+                    "allowedAlternatives": [
+                        {
+                            "foodId": "f_meat_150",
+                            "mealQuantity": {
+                                "amount": 150,
+                                "unit": "g"
+                            }
+                        },
+                        {
+                            "foodId": "f_fish_450",
+                            "mealQuantity": {
+                                "amount": 450,
+                                "unit": "g"
+                            }
+                        },
+                        {
+                            "foodId": "f_tuna_420",
+                            "mealQuantity": {
+                                "amount": 420,
+                                "unit": "g"
+                            }
+                        },
+                        {
+                            "foodId": "f_x8qfli1ft",
+                            "mealQuantity": {
+                                "amount": 400,
+                                "unit": "num"
+                            }
+                        }
+                    ],
+                    "type": "food",
+                    "mealQuantity": {
+                        "amount": 400,
+                        "unit": "num"
+                    }
+                },
+                {
+                    "activeFoodId": "f_rice_150",
+                    "allowedAlternatives": [
+                        {
+                            "foodId": "f_sk8qfv6wb",
+                            "mealQuantity": {
+                                "amount": 300,
+                                "unit": "num"
+                            }
+                        }
+                    ],
+                    "type": "food",
+                    "mealQuantity": {
+                        "amount": 150,
+                        "unit": "g"
+                    }
+                },
+                {
+                    "activeFoodId": "f_salad",
+                    "allowedAlternatives": [],
+                    "type": "food",
+                    "mealQuantity": {
+                        "amount": 1,
+                        "unit": "num"
+                    }
+                },
+                {
+                    "activeFoodId": "f_veg_250",
+                    "allowedAlternatives": [],
+                    "type": "food",
+                    "mealQuantity": {
+                        "amount": 250,
+                        "unit": "g"
+                    }
+                }
+            ],
+            "category": "post_workout",
+            "allowedMealAlternatives": []
         },
         "mt_3": {
-            name: "MEAL 3 (Snack)",
-            category: "snack",
-            allowedMealAlternatives: [],
-            components: [
-                { activeFoodId: "f_orange", allowedAlternatives: [] },
-                { activeFoodId: "f_potato_200", allowedAlternatives: [] }
-            ]
+            "name": "MEAL 3 (Snack)",
+            "components": [
+                {
+                    "activeFoodId": "f_orange",
+                    "allowedAlternatives": [],
+                    "type": "food",
+                    "mealQuantity": {
+                        "amount": 1,
+                        "unit": "num"
+                    }
+                },
+                {
+                    "activeFoodId": "f_potato_200",
+                    "allowedAlternatives": [],
+                    "type": "food",
+                    "mealQuantity": {
+                        "amount": 1,
+                        "unit": "num"
+                    }
+                }
+            ],
+            "category": "snack",
+            "allowedMealAlternatives": []
         },
         "mt_4": {
-            name: "MEAL 4 (Dinner)",
-            category: "dinner",
-            allowedMealAlternatives: [],
-            components: [
-                { activeFoodId: "f_yogurt_250", allowedAlternatives: [] },
-                { activeFoodId: "f_chicken_250", allowedAlternatives: ["f_thighs_200"] }
-            ]
+            "name": "MEAL 4 (Dinner)",
+            "components": [
+                {
+                    "activeFoodId": "f_yogurt_250",
+                    "allowedAlternatives": [],
+                    "type": "food",
+                    "mealQuantity": {
+                        "amount": 250,
+                        "unit": "g"
+                    }
+                },
+                {
+                    "activeFoodId": "f_chicken_250",
+                    "allowedAlternatives": [
+                        {
+                            "foodId": "f_thighs_200",
+                            "mealQuantity": {
+                                "amount": 200,
+                                "unit": "g"
+                            }
+                        }
+                    ],
+                    "type": "food",
+                    "mealQuantity": {
+                        "amount": 250,
+                        "unit": "g"
+                    }
+                }
+            ],
+            "category": "dinner",
+            "allowedMealAlternatives": []
         },
         "mt_5": {
-            name: "MEAL 5 (Late Snack)",
-            category: "late_snack",
-            allowedMealAlternatives: [],
-            components: [
-                { activeFoodId: "f_eggs", allowedAlternatives: [] },
-                { activeFoodId: "f_cottage_100", allowedAlternatives: [] },
-                { activeFoodId: "f_beans_250", allowedAlternatives: [] }
-            ]
+            "name": "MEAL 5 (Late Snack)",
+            "components": [
+                {
+                    "activeFoodId": "f_eggs",
+                    "allowedAlternatives": [],
+                    "type": "food",
+                    "mealQuantity": {
+                        "amount": 6,
+                        "unit": "num"
+                    }
+                },
+                {
+                    "activeFoodId": "f_cottage_100",
+                    "allowedAlternatives": [],
+                    "type": "food",
+                    "mealQuantity": {
+                        "amount": 100,
+                        "unit": "g"
+                    }
+                },
+                {
+                    "activeFoodId": "f_beans_250",
+                    "allowedAlternatives": [],
+                    "type": "food",
+                    "mealQuantity": {
+                        "amount": 250,
+                        "unit": "g"
+                    }
+                }
+            ],
+            "category": "late_snack",
+            "allowedMealAlternatives": []
         }
     },
-
-    // Table 3: Weekly schedule (7 days)
-    weeklyPlan: buildDefaultWeeklyPlan(),
-
-    // Grocery checklist state (checked keys, custom lines, which days to include)
-    groceryState: {
-        checked: {},
-        customItems: [],
-        weekCount: 1,
-        includedDays: {
-            sat: true, sun: true, mon: true, tue: true, wed: true, thu: true, fri: true
+    "weeklyPlan": {
+        "sat": [
+            {
+                "id": "schedule_1",
+                "time": "الساعة (5:00)",
+                "mealTemplateId": "mt_1",
+                "allowedMealAlternatives": [],
+                "foodOverrides": {},
+                "nestedMealOverrides": {}
+            },
+            {
+                "id": "schedule_2",
+                "time": "الساعة ( 6:10 )",
+                "mealTemplateId": "mt_2",
+                "allowedMealAlternatives": [],
+                "foodOverrides": {},
+                "nestedMealOverrides": {}
+            },
+            {
+                "id": "schedule_3",
+                "time": "الساعة (9:00)",
+                "mealTemplateId": "mt_3",
+                "allowedMealAlternatives": [],
+                "foodOverrides": {},
+                "nestedMealOverrides": {}
+            },
+            {
+                "id": "schedule_4",
+                "time": "الساعة (11:00)",
+                "mealTemplateId": "mt_4",
+                "allowedMealAlternatives": [],
+                "foodOverrides": {},
+                "nestedMealOverrides": {}
+            },
+            {
+                "id": "schedule_5",
+                "time": "الساعة ( 4:30 )",
+                "mealTemplateId": "mt_5",
+                "allowedMealAlternatives": [],
+                "foodOverrides": {},
+                "nestedMealOverrides": {}
+            }
+        ],
+        "sun": [
+            {
+                "id": "schedule_1",
+                "time": "الساعة (5:00)",
+                "mealTemplateId": "mt_1",
+                "allowedMealAlternatives": [],
+                "foodOverrides": {},
+                "nestedMealOverrides": {}
+            },
+            {
+                "id": "schedule_2",
+                "time": "الساعة ( 6:10 )",
+                "mealTemplateId": "mt_2",
+                "allowedMealAlternatives": [],
+                "foodOverrides": {},
+                "nestedMealOverrides": {}
+            },
+            {
+                "id": "schedule_3",
+                "time": "الساعة (9:00)",
+                "mealTemplateId": "mt_3",
+                "allowedMealAlternatives": [],
+                "foodOverrides": {},
+                "nestedMealOverrides": {}
+            },
+            {
+                "id": "schedule_4",
+                "time": "الساعة (11:00)",
+                "mealTemplateId": "mt_4",
+                "allowedMealAlternatives": [],
+                "foodOverrides": {},
+                "nestedMealOverrides": {}
+            },
+            {
+                "id": "schedule_5",
+                "time": "الساعة ( 4:30 )",
+                "mealTemplateId": "mt_5",
+                "allowedMealAlternatives": [],
+                "foodOverrides": {},
+                "nestedMealOverrides": {}
+            }
+        ],
+        "mon": [
+            {
+                "id": "schedule_1",
+                "time": "الساعة (5:00)",
+                "mealTemplateId": "mt_1",
+                "allowedMealAlternatives": [],
+                "foodOverrides": {},
+                "nestedMealOverrides": {}
+            },
+            {
+                "id": "schedule_2",
+                "time": "الساعة ( 6:10 )",
+                "mealTemplateId": "mt_2",
+                "allowedMealAlternatives": [],
+                "foodOverrides": {},
+                "nestedMealOverrides": {}
+            },
+            {
+                "id": "schedule_3",
+                "time": "الساعة (9:00)",
+                "mealTemplateId": "mt_3",
+                "allowedMealAlternatives": [],
+                "foodOverrides": {},
+                "nestedMealOverrides": {}
+            },
+            {
+                "id": "schedule_4",
+                "time": "الساعة (11:00)",
+                "mealTemplateId": "mt_4",
+                "allowedMealAlternatives": [],
+                "foodOverrides": {},
+                "nestedMealOverrides": {}
+            },
+            {
+                "id": "schedule_5",
+                "time": "الساعة ( 4:30 )",
+                "mealTemplateId": "mt_5",
+                "allowedMealAlternatives": [],
+                "foodOverrides": {},
+                "nestedMealOverrides": {}
+            }
+        ],
+        "tue": [
+            {
+                "id": "schedule_1",
+                "time": "الساعة (5:00)",
+                "mealTemplateId": "mt_1",
+                "allowedMealAlternatives": [],
+                "foodOverrides": {},
+                "nestedMealOverrides": {}
+            },
+            {
+                "id": "schedule_2",
+                "time": "الساعة ( 6:10 )",
+                "mealTemplateId": "mt_2",
+                "allowedMealAlternatives": [],
+                "foodOverrides": {},
+                "nestedMealOverrides": {}
+            },
+            {
+                "id": "schedule_3",
+                "time": "الساعة (9:00)",
+                "mealTemplateId": "mt_3",
+                "allowedMealAlternatives": [],
+                "foodOverrides": {},
+                "nestedMealOverrides": {}
+            },
+            {
+                "id": "schedule_4",
+                "time": "الساعة (11:00)",
+                "mealTemplateId": "mt_4",
+                "allowedMealAlternatives": [],
+                "foodOverrides": {},
+                "nestedMealOverrides": {}
+            },
+            {
+                "id": "schedule_5",
+                "time": "الساعة ( 4:30 )",
+                "mealTemplateId": "mt_5",
+                "allowedMealAlternatives": [],
+                "foodOverrides": {},
+                "nestedMealOverrides": {}
+            }
+        ],
+        "wed": [
+            {
+                "id": "schedule_1",
+                "time": "الساعة (5:00)",
+                "mealTemplateId": "mt_1",
+                "allowedMealAlternatives": [],
+                "foodOverrides": {},
+                "nestedMealOverrides": {}
+            },
+            {
+                "id": "schedule_2",
+                "time": "الساعة ( 6:10 )",
+                "mealTemplateId": "mt_2",
+                "allowedMealAlternatives": [],
+                "foodOverrides": {},
+                "nestedMealOverrides": {}
+            },
+            {
+                "id": "schedule_3",
+                "time": "الساعة (9:00)",
+                "mealTemplateId": "mt_3",
+                "allowedMealAlternatives": [],
+                "foodOverrides": {},
+                "nestedMealOverrides": {}
+            },
+            {
+                "id": "schedule_4",
+                "time": "الساعة (11:00)",
+                "mealTemplateId": "mt_4",
+                "allowedMealAlternatives": [],
+                "foodOverrides": {},
+                "nestedMealOverrides": {}
+            },
+            {
+                "id": "schedule_5",
+                "time": "الساعة ( 4:30 )",
+                "mealTemplateId": "mt_5",
+                "allowedMealAlternatives": [],
+                "foodOverrides": {},
+                "nestedMealOverrides": {}
+            }
+        ],
+        "thu": [
+            {
+                "id": "schedule_1",
+                "time": "الساعة (5:00)",
+                "mealTemplateId": "mt_1",
+                "allowedMealAlternatives": [],
+                "foodOverrides": {},
+                "nestedMealOverrides": {}
+            },
+            {
+                "id": "schedule_2",
+                "time": "الساعة ( 6:10 )",
+                "mealTemplateId": "mt_2",
+                "allowedMealAlternatives": [],
+                "foodOverrides": {},
+                "nestedMealOverrides": {}
+            },
+            {
+                "id": "schedule_3",
+                "time": "الساعة (9:00)",
+                "mealTemplateId": "mt_3",
+                "allowedMealAlternatives": [],
+                "foodOverrides": {},
+                "nestedMealOverrides": {}
+            },
+            {
+                "id": "schedule_4",
+                "time": "الساعة (11:00)",
+                "mealTemplateId": "mt_4",
+                "allowedMealAlternatives": [],
+                "foodOverrides": {},
+                "nestedMealOverrides": {}
+            },
+            {
+                "id": "schedule_5",
+                "time": "الساعة ( 4:30 )",
+                "mealTemplateId": "mt_5",
+                "allowedMealAlternatives": [],
+                "foodOverrides": {},
+                "nestedMealOverrides": {}
+            }
+        ],
+        "fri": [
+            {
+                "id": "schedule_1",
+                "time": "الساعة (5:00)",
+                "mealTemplateId": "mt_1",
+                "allowedMealAlternatives": [],
+                "foodOverrides": {},
+                "nestedMealOverrides": {}
+            },
+            {
+                "id": "schedule_2",
+                "time": "الساعة ( 6:10 )",
+                "mealTemplateId": "mt_2",
+                "allowedMealAlternatives": [],
+                "foodOverrides": {},
+                "nestedMealOverrides": {}
+            },
+            {
+                "id": "schedule_3",
+                "time": "الساعة (9:00)",
+                "mealTemplateId": "mt_3",
+                "allowedMealAlternatives": [],
+                "foodOverrides": {},
+                "nestedMealOverrides": {}
+            },
+            {
+                "id": "schedule_4",
+                "time": "الساعة (11:00)",
+                "mealTemplateId": "mt_4",
+                "allowedMealAlternatives": [],
+                "foodOverrides": {},
+                "nestedMealOverrides": {}
+            },
+            {
+                "id": "schedule_5",
+                "time": "الساعة ( 4:30 )",
+                "mealTemplateId": "mt_5",
+                "allowedMealAlternatives": [],
+                "foodOverrides": {},
+                "nestedMealOverrides": {}
+            }
+        ]
+    },
+    "groceryState": {
+        "checked": {},
+        "customItems": [],
+        "weekCount": 1,
+        "includedDays": {
+            "sat": true,
+            "sun": true,
+            "mon": true,
+            "tue": true,
+            "wed": true,
+            "thu": true,
+            "fri": true
         }
     },
-
-    // Daily food diary: what was actually eaten per plan week-day (rotating template)
-    dailyIntake: buildEmptyDailyIntake(),
-
-    // Calendar-based history for weekly/monthly reports (YYYY-MM-DD)
-    intakeHistory: {},
-
-    // Body progress: weight, body fat %, muscle mass, etc.
-    bodyMetricsLog: []
+    "dailyIntake": {
+        "sat": {
+            "eatenSchedule": {},
+            "extras": []
+        },
+        "sun": {
+            "eatenSchedule": {},
+            "extras": []
+        },
+        "mon": {
+            "eatenSchedule": {},
+            "extras": []
+        },
+        "tue": {
+            "eatenSchedule": {},
+            "extras": []
+        },
+        "wed": {
+            "eatenSchedule": {},
+            "extras": []
+        },
+        "thu": {
+            "eatenSchedule": {},
+            "extras": []
+        },
+        "fri": {
+            "eatenSchedule": {},
+            "extras": []
+        }
+    },
+    "bodyMetricsLog": [],
+    "intakeHistory": {}
 };
 
 const DataManager = {
